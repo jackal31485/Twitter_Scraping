@@ -15,11 +15,11 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 #- Globals --------------------------------------------------------------------
 #------------------------------------------------------------------------------
 # Setting Working Directory
-working_directory = 'D:\Twitter_Test'
+working_directory = 'C:\Twitter_Test'
 os.chdir(working_directory)
 print('Working Directory: %s'%(working_directory))
 # Setting Twitter All IDs Filename
-filename_twitter_ids = 'all_tracked_twitter_ids_TD_Canada_20100101_20180201.json'
+filename_twitter_ids = 'all_tracked_twitter_ids.json'
 location_twitter_ids = os.path.join(os.getcwd(),filename_twitter_ids)
 # Temporary Files being used in this Script
 filename_twitter_output_file_temp = 'filename_twitter_output_file_temp.json'
@@ -37,7 +37,7 @@ date2 = datetime.datetime.today()
 stepback = datetime.timedelta(days=1)
 date2 -= stepback
 date2 = date2.strftime('%Y-%m-%d')
-date2 = '2018-02-01'
+#date2 = '2018-02-01'
 
 #Setting End Date
 start = datetime.datetime.strptime(date1, '%Y-%m-%d')
@@ -55,8 +55,7 @@ print('Number of Days in consideration for processing: %d' % (len(Dates_to_proce
 #- Perparing Twitter Handle & Hashtag Lists to Process ------------------------
 #------------------------------------------------------------------------------
 #Creating lists of all users and hashtags to check against
-#Green Bank - TD Bank
-track_items1_a= ['@TD_Canada']
+track_items1_a= ['<Twitter Handle>']
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------

@@ -13,11 +13,11 @@ import os, time, json, tweepy, math
 #os.chdir(working_directory)
 #print('Working Directory: %s'%(working_directory))
 # Setting Twitter All IDs Filename
-filename_twitter_ids = 'all_tracked_twitter_ids_TD_Canada_from_20100101_onwards_6.json'
+filename_twitter_ids = 'all_tracked_twitter_ids.json'
 #location_twitter_ids = os.path.join(os.getcwd(),filename_twitter_ids)
 location_twitter_ids = filename_twitter_ids
 # Temporary Files being used in this Script
-filename_twitter_output_file_temp = 'TwitterData_TD_Canada_from_20100101_onwards_6.json'
+filename_twitter_output_file_temp = 'TwitterData.json'
 #Twitter API Credentials
 filename_twitter_api_keys = 'api_keys.json'
 #------------------------------------------------------------------------------

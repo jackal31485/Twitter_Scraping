@@ -27,11 +27,11 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 #- Globals --------------------------------------------------------------------
 #------------------------------------------------------------------------------
 # Setting Working Directory
-working_directory = 'D:\Twitter_Scraper'
+working_directory = ''
 os.chdir(working_directory)
 print('Working Directory: %s'%(working_directory))
 # Setting Twitter All IDs Filename
-filename_twitter_ids = 'all_tracked_twitter_ids_from_20170101.json'
+filename_twitter_ids = 'all_tracked_twitter_ids_from_yyyymmdd.json'
 location_twitter_ids = os.path.join(os.getcwd(),filename_twitter_ids)
 # Setting Twitter Database
 filename_twitter_db = 'twitterDB.db'
@@ -47,7 +47,7 @@ geocode_dailymaxretrievefree = 1000
 geocode_dailymaxretrieveuser = 2500
 google_api_key = ''
 #Setting Starting Date
-date1 = '2017-01-01'
+date1 = 'yyyy-mm-dd'
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
@@ -94,13 +94,13 @@ objectsCreate = {'UserTimeline':
                  'location_longitude real,'
                  'PRIMARY KEY (follower_id_str))'}
 
-                 #'WordsCount':
-                 #'CREATE TABLE IF NOT EXISTS WordsCount ('
-                 #'tweet_created_date text,'
-                 #'tweet_grouping text,'
-                 #'word text,'
-                 #'frequency int,'
-                 #'PRIMARY KEY (tweet_created_date, tweet_grouping, word))'
+                 'WordsCount':
+                 'CREATE TABLE IF NOT EXISTS WordsCount ('
+                 'tweet_created_date text,'
+                 'tweet_grouping text,'
+                 'word text,'
+                 'frequency int,'
+                 'PRIMARY KEY (tweet_created_date, tweet_grouping, word))'
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------

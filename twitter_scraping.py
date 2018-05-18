@@ -45,7 +45,7 @@ WordCloudTweetNo = 40
 #GeoCode Daily Limit - Free Max = 1000; Registered Max = 2500
 geocode_dailymaxretrievefree = 1000
 geocode_dailymaxretrieveuser = 2500
-google_api_key = 'AIzaSyBifIERsCEVN3GerXWWLPg56w01pGIxmIU'
+google_api_key = ''
 #Setting Starting Date
 date1 = '2017-01-01'
 #------------------------------------------------------------------------------
@@ -82,11 +82,6 @@ objectsCreate = {'UserTimeline':
                  'tweet_longitude real,'
                  'tweet_latitude real,'
                  'tweet_grouping_1 text,'
-                 'tweet_grouping_2 text,'
-                 'tweet_grouping_3 text,'
-                 'tweet_grouping_4 text,'
-                 'tweet_grouping_5 text,'
-                 'tweet_grouping_6 text,'
                  'tweet_retweeted text,'
                  'PRIMARY KEY(tweet_id_str))',
 
@@ -157,23 +152,8 @@ if exists_db:
 #------------------------------------------------------------------------------
 #Creating lists of all users and hashtags to check against
 #Green Bank - TD Bank
-track_items1_a= ['@TD_Canada','@TDNews_Canada','@TDFEF','@TDBank_US','@TD_Bank','@TD_Economics','@TD_Careers','@TD_Garden','@TDNews_US','@Banque_TD','@TD_DirectInvest','@TD_Insurance','@TD_Assurance','#TD_Canada','#TDNews_Canada','#TDFEF','#TDBank_US','#TD_Bank','#TD_Economics','#TD_Careers','#TD_Garden','#TDNews_US','#Banque_TD','#TD_DirectInvest','#TD_Insurance','#TD_Assurance','TD_Canada','TDNews_Canada','TDFEF','TDBank_US','TD_Bank','TD_Economics','TD_Careers','TD_Garden','TDNews_US','Banque_TD','TD_DirectInvest','TD_Insurance','TD_Assurance']
-track_items1_b= r"(@TD_Canada|@TDNews_Canada|@TDFEF|@TDBank_US|@TD_Bank|@TD_Economics|@TD_Careers|@TD_Garden|@TDNews_US|@Banque_TD|@TD_DirectInvest|@TD_Insurance|@TD_Assurance|#TD_Canada|#TDNews_Canada|#TDFEF|#TDBank_US|#TD_Bank|#TD_Economics|#TD_Careers|#TD_Garden|#TDNews_US|#Banque_TD|#TD_DirectInvest|#TD_Insurance|#TD_Assurance|TD_Canada|TDNews_Canada|TDFEF|TDBank_US|TD_Bank|TD_Economics|TD_Careers|TD_Garden|TDNews_US|Banque_TD|TD_DirectInvest|TD_Insurance|TD_Assurance)"
-#Blue  Bank - RBC
-track_items2_a= ['@AskRBC','@RBC_Newsroom','@RBC','@RBC_Canada','@RBCGAMAdvisor','@RBCGAMNews','@RBC4Students','@RBCCareers','@RBCInsurance','#AskRBC','#RBC_Newsroom','#RBC','#RBC_Canada','#RBCGAMAdvisor','#RBCGAMNews','#RBC4Students','#RBCCareers','#RBCInsurance','AskRBC','RBC_Newsroom','RBC_Canada','RBCGAMAdvisor','RBCGAMNews','RBC4Students','RBCCareers','RBCInsurance','RBC']
-track_items2_b= r"(@AskRBC|@RBC_Newsroom|@RBC|@RBC_Canada|@RBCGAMAdvisor|@RBCGAMNews|@RBC4Students|@RBCCareers|@RBCInsurance|#AskRBC|#RBC_Newsroom|#RBC|#RBC_Canada|#RBCGAMAdvisor|#RBCGAMNews|#RBC4Students|#RBCCareers|#RBCInsurance|AskRBC|RBC_Newsroom|RBC|RBC_Canada|RBCGAMAdvisor|RBCGAMNews|RBC4Students|RBCCareers|RBCInsurance)"
-#Red   Bank - CIBC
-track_items3_a= ['@CIBC','#CIBC','CIBC']
-track_items3_b= r"(@CIBC|#CIBC|CIBC)"
-#Other Bank - BMO
-track_items4_a = ['@BMO','@BMOfr','@BMOmedia','@BMOonCampus','#BMO','#BMOfr','#BMOmedia','#BMOonCampus','BMO','BMOfr','BMOmedia','BMOonCampus']
-track_items4_b = r"(@BMO|@BMOfr|@BMOmedia|@BMOonCampus|#BMO|#BMOfr|#BMOmedia|#BMOonCampus|BMO|BMOfr|BMOmedia|BMOonCampus)"
-#Other Bank - Scotia Bank
-track_items5_a= ['@scotiabank','@ScotiabankHelps','@scotiahockey','@SCENEcard','#scotiabank','#ScotiabankHelps','#scotiahockey','#SCENEcard','scotiabank','ScotiabankHelps','scotiahockey','SCENEcard']
-track_items5_b= r"(@scotiabank|@ScotiabankHelps|@scotiahockey|@SCENEcard|#scotiabank|#ScotiabankHelps|#scotiahockey|#SCENEcard|scotiabank|ScotiabankHelps|scotiahockey|SCENEcard)"
-#Other Bank - Bank of Canada and National Bank
-track_items6_a= ['@nationalbank','@bankofcanada','@banqueducanada','@BoC_Jobs','@BdC_Emplois','#nationalbank','#bankofcanada','#banqueducanada','#BoC_Jobs','#BdC_Emplois','nationalbank','bankofcanada','banqueducanada','BoC_Jobs','BdC_Emplois']
-track_items6_b= r"(@nationalbank|@bankofcanada|@banqueducanada|@BoC_Jobs|@BdC_Emplois|#nationalbank|#bankofcanada|#banqueducanada|#BoC_Jobs|#BdC_Emplois|nationalbank|bankofcanada|banqueducanada|BoC_Jobs|BdC_Emplois)"
+track_items1_a= ['@']
+track_items1_b= r"(@)"
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
@@ -411,137 +391,12 @@ def downloadtwitterdata():
     print('------------------------------------------------')
     print('Twitter Download and Database Update Process - Completed')
 #------------------------------------------------------------------------------
-def updategrouping_6():
-    grouping_6 = None
-    #Setting Grouping 'Bank of Canada and National Bank of Canada'
-    cur_db_user = "SELECT DISTINCT tweet_id_str,tweet_text,screen_name,tweet_in_reply_to_screen_name from UserTimeline where tweet_grouping_6 is null"
-    dbgrouping = conn.execute(cur_db_user).fetchall()
-    print('Number of IDs for Bank of Canada and National Bank of Canada processing: %d' % (len(dbgrouping)))
-    for tweetidstr in dbgrouping:
-        if tweetidstr[1] is not None:
-            payload = tweetidstr[1]
-        else:
-            payload = ""
-        if tweetidstr[2] is not None:
-            tweet_screenname = tweetidstr[2]
-        else:
-            tweet_screenname = ""
-        if tweetidstr[3] is not None:
-            tweet_inreplyto = tweetidstr[3]
-        else:
-            tweet_inreplyto = ""
-        tweet_masterstring = payload + " " + tweet_screenname + " " + tweet_inreplyto
-        if re.search(track_items6_b,tweet_masterstring, re.IGNORECASE):
-            grouping_6 = "Bank of Canada and National Bank of Canada"
-        if grouping_6 is not None:
-            conn.execute("UPDATE UserTimeline SET tweet_grouping_6 = ? WHERE tweet_id_str = ?",(grouping_6,tweetidstr[0]))
-            conn.commit()
-def updategrouping_5():
-    grouping_5 = None
-    #Setting Grouping 'Other Bank - Scotia Bank'
-    cur_db_user = "SELECT DISTINCT tweet_id_str,tweet_text,screen_name,tweet_in_reply_to_screen_name from UserTimeline where tweet_grouping_5 is null"
-    dbgrouping = conn.execute(cur_db_user).fetchall()
-    print('Number of IDs for Bank of Nova Scotia processing: %d' % (len(dbgrouping)))
-    for tweetidstr in dbgrouping:
-        if tweetidstr[1] is not None:
-            payload = tweetidstr[1]
-        else:
-            payload = ""
-        if tweetidstr[2] is not None:
-            tweet_screenname = tweetidstr[2]
-        else:
-            tweet_screenname = ""
-        if tweetidstr[3] is not None:
-            tweet_inreplyto = tweetidstr[3]
-        else:
-            tweet_inreplyto = ""
-        tweet_masterstring = payload + " " + tweet_screenname + " " + tweet_inreplyto
-        if re.search(track_items5_b,tweet_masterstring, re.IGNORECASE):
-            grouping_5 = "Bank of Nova Scotia"
-        if grouping_5 is not None:
-            conn.execute("UPDATE UserTimeline SET tweet_grouping_5 = ? WHERE tweet_id_str = ?",(grouping_5,tweetidstr[0]))
-            conn.commit()
-def updategrouping_4():
-    grouping_4 = None
-    #Setting Grouping 'Other Bank - BMO'
-    cur_db_user = "SELECT DISTINCT tweet_id_str,tweet_text,screen_name,tweet_in_reply_to_screen_name from UserTimeline where tweet_grouping_4 is null"
-    dbgrouping = conn.execute(cur_db_user).fetchall()
-    print('Number of IDs for Bank of Montreal processing: %d' % (len(dbgrouping)))
-    for tweetidstr in dbgrouping:
-        if tweetidstr[1] is not None:
-            payload = tweetidstr[1]
-        else:
-            payload = ""
-        if tweetidstr[2] is not None:
-            tweet_screenname = tweetidstr[2]
-        else:
-            tweet_screenname = ""
-        if tweetidstr[3] is not None:
-            tweet_inreplyto = tweetidstr[3]
-        else:
-            tweet_inreplyto = ""
-        tweet_masterstring = payload + " " + tweet_screenname + " " + tweet_inreplyto
-        if re.search(track_items4_b,tweet_masterstring, re.IGNORECASE):
-            grouping_4 = "Bank of Montreal"
-        if grouping_4 is not None:
-            conn.execute("UPDATE UserTimeline SET tweet_grouping_4 = ? WHERE tweet_id_str = ?",(grouping_4,tweetidstr[0]))
-            conn.commit()
-def updategrouping_3():
-    grouping_3 = None
-    #Setting Grouping 'Red   Bank - CIBC'
-    cur_db_user = "SELECT DISTINCT tweet_id_str,tweet_text,screen_name,tweet_in_reply_to_screen_name from UserTimeline where tweet_grouping_3 is null"
-    dbgrouping = conn.execute(cur_db_user).fetchall()
-    print('Number of IDs for Canadian Imperial Bank of Commerce processing: %d' % (len(dbgrouping)))
-    for tweetidstr in dbgrouping:
-        if tweetidstr[1] is not None:
-            payload = tweetidstr[1]
-        else:
-            payload = ""
-        if tweetidstr[2] is not None:
-            tweet_screenname = tweetidstr[2]
-        else:
-            tweet_screenname = ""
-        if tweetidstr[3] is not None:
-            tweet_inreplyto = tweetidstr[3]
-        else:
-            tweet_inreplyto = ""
-        tweet_masterstring = payload + " " + tweet_screenname + " " + tweet_inreplyto
-        if re.search(track_items3_b,tweet_masterstring, re.IGNORECASE):
-            grouping_3 = "Canadian Imperial Bank of Commerce"
-        if grouping_3 is not None:
-            conn.execute("UPDATE UserTimeline SET tweet_grouping_3 = ? WHERE tweet_id_str = ?",(grouping_3,tweetidstr[0]))
-            conn.commit()
-def updategrouping_2():
-    grouping_2 = None
-    #Setting Grouping 'Blue  Bank - RBC'
-    cur_db_user = "SELECT DISTINCT tweet_id_str,tweet_text,screen_name,tweet_in_reply_to_screen_name from UserTimeline where tweet_grouping_2 is null"
-    dbgrouping = conn.execute(cur_db_user).fetchall()
-    print('Number of IDs for Royal Bank of Canada processing: %d' % (len(dbgrouping)))
-    for tweetidstr in dbgrouping:
-        if tweetidstr[1] is not None:
-            payload = tweetidstr[1]
-        else:
-            payload = ""
-        if tweetidstr[2] is not None:
-            tweet_screenname = tweetidstr[2]
-        else:
-            tweet_screenname = ""
-        if tweetidstr[3] is not None:
-            tweet_inreplyto = tweetidstr[3]
-        else:
-            tweet_inreplyto = ""
-        tweet_masterstring = payload + " " + tweet_screenname + " " + tweet_inreplyto
-        if re.search(track_items2_b,tweet_masterstring, re.IGNORECASE):
-            grouping_2 = "Royal Bank of Canada"
-        if grouping_2 is not None:
-            conn.execute("UPDATE UserTimeline SET tweet_grouping_2 = ? WHERE tweet_id_str = ?",(grouping_2,tweetidstr[0]))
-            conn.commit()
 def updategrouping_1():
     grouping_1 = None
-    #Setting Grouping 'Green Bank - TD Bank'
+    #Setting Grouping
     cur_db_user = "SELECT DISTINCT tweet_id_str,tweet_text,screen_name,tweet_in_reply_to_screen_name from UserTimeline where tweet_grouping_1 is null"
     dbgrouping = conn.execute(cur_db_user).fetchall()
-    print('Number of IDs for Toronto-Dominion Bank processing: %d' % (len(dbgrouping)))
+    print('Number of IDs processing: %d' % (len(dbgrouping)))
     for tweetidstr in dbgrouping:
         if tweetidstr[1] is not None:
             payload = tweetidstr[1]
@@ -697,8 +552,8 @@ try:
         print("Twitter API Credentials File Exists. Updating Twitter Database - Start.")
         conn = sqlite3.connect(location_db)
         downloadtwitterdata()
-        #updateDailyWordCounts()
-        #UpdateFollowersGeoData()
+        updateDailyWordCounts()
+        UpdateFollowersGeoData()
         conn.close()
         print("Updating Twitter Database - Complete.")
     else:
@@ -711,100 +566,10 @@ try:
         delay = 3  # time to wait on each page load before reading the page
         driver = webdriver.Chrome()  # options are Chrome() Firefox() Safari()
         #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        # Starting Day Processing - Bank of Canada and National Bank of Canada
+        # Starting Day Processing
         #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         conn = sqlite3.connect(location_db)
-        cur_db_user = "SELECT DISTINCT tweet_created_date from UserTimeline where tweet_grouping_6 ='Bank of Canada and National Bank of Canada'"
-        db_grouping_1 = conn.execute(cur_db_user).fetchall()
-        DaysUserTimeline = []
-        for u in db_grouping_1:
-            DaysUserTimeline.extend(u)
-        print('Bank of Canada and National Bank of Canada - Total Database UserTimeline Days: ', len(DaysUserTimeline))
-        Dates_to_process_final = []
-        Dates_to_process_final = [item for item in Dates_to_process_pre if item not in DaysUserTimeline]
-        conn.close()
-        print('Number of Days for processing: %d' % (len(Dates_to_process_final)))
-        for processdate in Dates_to_process_final:
-            for twitter_handle_hashtag in track_items6_a:
-                print("For Date: %s | Currently Processing: %s"%(processdate,twitter_handle_hashtag))
-                selenium_processing(processdate,twitter_handle_hashtag)
-        #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        # Starting Day Processing - Bank of Nova Scotia
-        #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        conn = sqlite3.connect(location_db)
-        cur_db_user = "SELECT DISTINCT tweet_created_date from UserTimeline where tweet_grouping_5 ='Bank of Nova Scotia'"
-        db_grouping_1 = conn.execute(cur_db_user).fetchall()
-        DaysUserTimeline = []
-        for u in db_grouping_1:
-            DaysUserTimeline.extend(u)
-        print('Bank of Nova Scotia - Total Database UserTimeline Days: ', len(DaysUserTimeline))
-        Dates_to_process_final = []
-        Dates_to_process_final = [item for item in Dates_to_process_pre if item not in DaysUserTimeline]
-        conn.close()
-        print('Number of Days for processing: %d' % (len(Dates_to_process_final)))
-        for processdate in Dates_to_process_final:
-            for twitter_handle_hashtag in track_items5_a:
-                print("For Date: %s | Currently Processing: %s"%(processdate,twitter_handle_hashtag))
-                selenium_processing(processdate,twitter_handle_hashtag)
-        #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        # Starting Day Processing - Bank of Montreal
-        #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        conn = sqlite3.connect(location_db)
-        cur_db_user = "SELECT DISTINCT tweet_created_date from UserTimeline where tweet_grouping_4 ='Bank of Montreal'"
-        db_grouping_1 = conn.execute(cur_db_user).fetchall()
-        DaysUserTimeline = []
-        for u in db_grouping_1:
-            DaysUserTimeline.extend(u)
-        print('Bank of Montreal - Total Database UserTimeline Days: ', len(DaysUserTimeline))
-        Dates_to_process_final = []
-        Dates_to_process_final = [item for item in Dates_to_process_pre if item not in DaysUserTimeline]
-        conn.close()
-        print('Number of Days for processing: %d' % (len(Dates_to_process_final)))
-        for processdate in Dates_to_process_final:
-            for twitter_handle_hashtag in track_items4_a:
-                print("For Date: %s | Currently Processing: %s"%(processdate,twitter_handle_hashtag))
-                selenium_processing(processdate,twitter_handle_hashtag)
-        #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        # Starting Day Processing - Canadian Imperial Bank of Commerce
-        #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        conn = sqlite3.connect(location_db)
-        cur_db_user = "SELECT DISTINCT tweet_created_date from UserTimeline where tweet_grouping_3 ='Canadian Imperial Bank of Commerce'"
-        db_grouping_1 = conn.execute(cur_db_user).fetchall()
-        DaysUserTimeline = []
-        for u in db_grouping_1:
-            DaysUserTimeline.extend(u)
-        print('Canadian Imperial Bank of Commerce - Total Database UserTimeline Days: ', len(DaysUserTimeline))
-        Dates_to_process_final = []
-        Dates_to_process_final = [item for item in Dates_to_process_pre if item not in DaysUserTimeline]
-        conn.close()
-        print('Number of Days for processing: %d' % (len(Dates_to_process_final)))
-        for processdate in Dates_to_process_final:
-            for twitter_handle_hashtag in track_items3_a:
-                print("For Date: %s | Currently Processing: %s"%(processdate,twitter_handle_hashtag))
-                selenium_processing(processdate,twitter_handle_hashtag)
-        #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        # Starting Day Processing - Royal Bank of Canada
-        #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        conn = sqlite3.connect(location_db)
-        cur_db_user = "SELECT DISTINCT tweet_created_date from UserTimeline where tweet_grouping_2 ='Royal Bank of Canada'"
-        db_grouping_1 = conn.execute(cur_db_user).fetchall()
-        DaysUserTimeline = []
-        for u in db_grouping_1:
-            DaysUserTimeline.extend(u)
-        print('Royal Bank of Canada- Total Database UserTimeline Days: ', len(DaysUserTimeline))
-        Dates_to_process_final = []
-        Dates_to_process_final = [item for item in Dates_to_process_pre if item not in DaysUserTimeline]
-        conn.close()
-        print('Number of Days for processing: %d' % (len(Dates_to_process_final)))
-        for processdate in Dates_to_process_final:
-            for twitter_handle_hashtag in track_items2_a:
-                print("For Date: %s | Currently Processing: %s"%(processdate,twitter_handle_hashtag))
-                selenium_processing(processdate,twitter_handle_hashtag)
-        #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        # Starting Day Processing - Toronto-Dominion Bank
-        #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        conn = sqlite3.connect(location_db)
-        cur_db_user = "SELECT DISTINCT tweet_created_date from UserTimeline where tweet_grouping_1 ='Toronto-Dominion Bank'"
+        cur_db_user = "SELECT DISTINCT tweet_created_date from UserTimeline where tweet_grouping_1 =''"
         db_grouping_1 = conn.execute(cur_db_user).fetchall()
         DaysUserTimeline = []
         for u in db_grouping_1:
@@ -828,47 +593,22 @@ try:
         print("Twitter API Credentials File Exists. Updating Twitter Database - Start.")
         conn = sqlite3.connect(location_db)
         downloadtwitterdata()
-        updategrouping_6()
-        updategrouping_5()
-        updategrouping_4()
-        updategrouping_3()
-        updategrouping_2()
         updategrouping_1()
 
         cur_db_user = "SELECT DISTINCT tweet_id_str from UserTimeline "
         dbgrouping = conn.execute(cur_db_user).fetchall()
         print('Number of IDs processed: %d' % (len(dbgrouping)))
 
-        cur_db_user = "SELECT DISTINCT tweet_id_str from UserTimeline where tweet_grouping_6 is not null"
-        dbgrouping = conn.execute(cur_db_user).fetchall()
-        print('Number of IDs for Bank of Canada and National Bank of Canada processing: %d' % (len(dbgrouping)))
-
-        cur_db_user = "SELECT DISTINCT tweet_id_str from UserTimeline where tweet_grouping_5 is not null"
-        dbgrouping = conn.execute(cur_db_user).fetchall()
-        print('Number of IDs for Bank of Nova Scotia processing: %d' % (len(dbgrouping)))
-
-        cur_db_user = "SELECT DISTINCT tweet_id_str from UserTimeline where tweet_grouping_4 is not null"
-        dbgrouping = conn.execute(cur_db_user).fetchall()
-        print('Number of IDs for Bank of Montreal processing: %d' % (len(dbgrouping)))
-
-        cur_db_user = "SELECT DISTINCT tweet_id_str from UserTimeline where tweet_grouping_3 is not null"
-        dbgrouping = conn.execute(cur_db_user).fetchall()
-        print('Number of IDs for Canadian Imperial Bank of Commerce processing: %d' % (len(dbgrouping)))
-
-        cur_db_user = "SELECT DISTINCT tweet_id_str from UserTimeline where tweet_grouping_2 is not null"
-        dbgrouping = conn.execute(cur_db_user).fetchall()
-        print('Number of IDs for Royal Bank of Canada processing: %d' % (len(dbgrouping)))
-
         cur_db_user = "SELECT DISTINCT tweet_id_str from UserTimeline where tweet_grouping_1 is not null"
         dbgrouping = conn.execute(cur_db_user).fetchall()
         print('Number of IDs for Toronto-Dominion Bank processing: %d' % (len(dbgrouping)))
 
-        cur_db_user = "SELECT DISTINCT tweet_id_str from UserTimeline where tweet_grouping_6 is null and tweet_grouping_5 is null and tweet_grouping_4 is null and tweet_grouping_3 is null and tweet_grouping_2 is null and tweet_grouping_1 is null "
+        cur_db_user = "SELECT DISTINCT tweet_id_str from UserTimeline where tweet_grouping_1 is null "
         dbgrouping = conn.execute(cur_db_user).fetchall()
         print('Number of IDs to delete: %d' % (len(dbgrouping)))
 
-        #updateDailyWordCounts()
-        #UpdateFollowersGeoData()
+        updateDailyWordCounts()
+        UpdateFollowersGeoData()
         conn.close()
         print("Updating Twitter Database - Complete.")
     else:
